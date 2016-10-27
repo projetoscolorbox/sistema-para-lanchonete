@@ -1,24 +1,24 @@
-<html lang="pt-br">
-	<head>
-		
-		<meta charset='utf8'>
+<!DOCTYPE html>
+<html lang='pt-br'>
+<head>
+	<meta charset='utf8'>
 
-		<?php
-			require "configuracao.php";
-			require "conf.php";
+	<?php
+		require 'config.php';
 
-			echo "<title>".$config->getEmpresa()."</title>";
-			//echo "<title>".$conf['nome_empresa']."</title>";
-		?>
-
-		<link href='style.css' rel='stylesheet'/>
-
-	</head>
-
-	<body>
-
-		<meta charset='utf8'>
+		echo "<title>".$config->getEmpresa()."</title>";
+	?>
 	
-	</body>
+	<link rel="stylesheet" href="../template/assets/css/style.css">
 
+</head>
+<body>
+	<?php 
+	//esta logado?
+	//caso s
+		//include "../template/modules/carregar_funcionalidades.php"
+	//caso n
+		include "../template/modules/usuario/login.php";
+	?>
+</body>
 </html>
