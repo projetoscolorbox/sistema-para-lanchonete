@@ -1,5 +1,5 @@
 <div class="login">
-<form method='POST' action='modules/carregar_funcionalidades.php' >
+<form method='POST' action='carregar_funcionalidades.php'>
 		<label>Usuário:</label>
 		<br>
 		<input type='text' name='user'>

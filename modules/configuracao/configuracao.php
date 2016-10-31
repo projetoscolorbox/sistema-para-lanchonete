@@ -1,0 +1,4 @@
+carregando configuracao...
+<?php
+	
+?>

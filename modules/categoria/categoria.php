@@ -1,0 +1,4 @@
+carregando categoria...
+<?php
+	
+?>
