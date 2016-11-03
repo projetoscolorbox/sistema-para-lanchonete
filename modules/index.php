@@ -4,7 +4,7 @@
 
 	if( isset($_SESSION['usuario']) && !empty($_SESSION['usuario']) ){
 
-		switch($_GET['a']){
+		switch($_GET['acao']){
 
 			case 'Cardapio':
 			header("Location: cardapio.php");
@@ -26,8 +26,16 @@
 			header("Location: produto/produto.php");
 			break;
 
+			case 'Usuario':
+			header("Location: usuario/usuario.php");
+			break;
+
 			case 'Configuracao':
 			header("Location: configuracao/configuracao.php");
+			break;
+
+			case 'Deslogar':
+			header("Location: deslogar.php");
 			break;
 
 
@@ -35,7 +43,7 @@
 
 	}else{
 
-		switch($_GET['a']){
+		switch($_GET['acao']){
 
 			case 'Cardapio':
 			header("Location: cardapio.php");
