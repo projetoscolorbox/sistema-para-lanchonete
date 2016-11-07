@@ -5,7 +5,7 @@
 	#recuperamos a quantidade de categorias existentes;
 	#criamos um enlace para cada categoria, escrevera a categoria e recuperará a lista de produtos
 	
-	require_once "../config.php";
+	#require_once "../config.php";
 
 	try{
 		$banco = new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());

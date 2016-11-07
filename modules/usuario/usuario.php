@@ -4,7 +4,6 @@ carregando usuario...
 	<input type='number' size='1' name='quantidade' value=10>
 </form>
 <?php
-	require_once "../../config.php";
 	extract($_GET);
 	try{
 

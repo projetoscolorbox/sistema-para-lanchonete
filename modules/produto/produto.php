@@ -1,54 +1,85 @@
-carregando produto...
-<form method="GET">
-	<input type='submit' value='Buscar os primeiros' >
-	<input type='number' size='1' name='quantidade' value=10>
-</form>
 <?php
-	require_once "../../config.php";
+	session_start();
 	extract($_GET);
 	try{
 
-			$pagina = 0;
-			$n = 10;
-			if (!empty($quantidade)) {
-				$n = $quantidade;
-			}
+		$banco = new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
+		
 
-			$banco = new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
+		$numero_registros = 10;
+		
+		
+
+		$sql2 = $banco->query("SELECT COUNT(*) as T FROM tb_produtos where produto_apagado = '0';");
+		$sql2 = $sql2->fetch();
+		$total = $sql2['T'];
+		$paginas = $total/$numero_registros;
+
+		$pg = 1;
+
+		if(isset($_GET['p']) && !empty($_GET['p'])){
+			$pg = addslashes($_GET['p']);
+		}
+
+		$p = ($pg - 1) * $numero_registros;
 
 
-			$sql = $banco->query("SELECT produto_id,produto_nome,produto_preco FROM tb_produtos LIMIT $pagina, $n;");
-			$total = $banco->query("SELECT COUNT(*) as c FROM tb_produtos");
-			$total = $total->fetch();
+		$sql = $banco->query("SELECT produto_id,produto_nome,produto_preco FROM tb_produtos WHERE produto_apagado !='1' LIMIT $p, $numero_registros;");
 
-			#Criacao da tabela
-			echo "<table width='500' border='1'>";
-			echo "<tr>
-				<td>ID</td>
-				<td>Nome</td>
-				<td>Preço</td>
-			</tr>";
-			foreach ($sql->fetchAll() as $item) {
-				echo "<tr>
-					<td>".$item['produto_id']."</td>
-					<td>".$item['produto_nome']."</td>
-					<td>".$item['produto_preco']."</td>
-				</tr>";
-			}
+		#carregando as configurações###############################
+		$usuario_id = $_SESSION['usuario'];
+		$cadastrar = $_SESSION['set']['produto_cadastrar'];
+		$editar = $_SESSION['set']['produto_editar'];
+		$excluir = $_SESSION['set']['produto_excluir'];
+
+
+
+		if($cadastrar == 1){
+			echo "<a href='./produto-cadastrar.php'>Cadastrar</a>";
+		}
+
+		
+		echo "<table width='500' border='1'>";
+		echo "<tr>";
+		echo	"<td>Nome</td>";
+		echo 	"<td>Preço</td>";
+		if($editar == 1 || $excluir == 1) {
+			echo "<td>Ação</td>";
+		}
+		echo "</tr>";
+		
+		
+		foreach ($sql->fetchAll() as  $item) {
 			
-			echo "</table>";
-			###################################
+			echo "<tr>";
+			echo	"<td>".$item['produto_nome']."</td>";
+			echo 	"<td>".$item['produto_preco']."</td>";
 
-			#Criando os links###############
-			for ($i=1; $i <= $total['c']; $i++) { 
-				echo "<a href='./produto.php?quantidade=".$i."'>[".$i."]</a>";
+			if($editar == 1 && $excluir == 1){
+				echo "<td><a href='./produto-editar.php?prodID=".$item['produto_id']."&prodNome=&prodPreco="."'>Editar</a><a href='./produto-excluir.php?prodID=".$item['produto_id']."'>Excluir</a></td>";
+			}else if($editar ==1){
+				echo "<td><a href='./produto-editar.php?prodID=".$item['produto_id']."&prodNome=&prodPreco="."'>Editar</a></td>";
+			}else if($excluir == 1){
+				echo "<td><a href='./produto-excluir.php?prodID=".$item['produto_id']."'>Excluir</a></td>";
 			}
 
-			################################
-
-		}catch(PDOException $e){
-
-			echo "Falhou".$e->getMessage();
+			echo "</tr>";
 			
 		}
+		echo "</table>";
+		###########################################################
+			
+
+		#Criando os links de paginação dos registros###############
+		for ($i=1; $i <= $paginas; $i++) { 
+			echo "<a href='./produto.php?p=".$i."'>[".$i."]</a>";
+		}
+		###########################################################
+	
+
+	}catch(PDOException $e){
+
+		echo "Falhou".$e->getMessage();
+		
+	}
 ?>
