@@ -1,6 +1,5 @@
 <?php 
-	require "../banco_mysql.php";
-	require "../../config.php";
+	
 		
 	$conexao =  new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
 
@@ -11,7 +10,12 @@
 	$stmtUpdate = "UPDATE tb_produtos SET produto_apagado ='1' WHERE produto_id='$prodID';";
 	
 	$queryUpdate = $conexao->query($stmtUpdate);
+	$total = $queryUpdate->rowCount();
 
-	header("Location: produto.php");
+	if($total > 0){
+			
+		header("Location: index.php?acao=Produto");
+			
+	}
 
 ?>

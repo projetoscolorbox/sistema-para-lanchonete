@@ -1,5 +1,4 @@
 <?php
-	session_start();
 	extract($_GET);
 	try{
 
@@ -13,7 +12,7 @@
 		$sql2 = $banco->query("SELECT COUNT(*) as T FROM tb_produtos where produto_apagado = '0';");
 		$sql2 = $sql2->fetch();
 		$total = $sql2['T'];
-		$paginas = $total/$numero_registros;
+		$paginas = ceil($total/$numero_registros);
 
 		$pg = 1;
 
@@ -35,7 +34,7 @@
 
 
 		if($cadastrar == 1){
-			echo "<a href='./produto-cadastrar.php'>Cadastrar</a>";
+			echo "<a href='index.php?acao=produto-cadastrar'>Cadastrar</a>";
 		}
 
 		
@@ -56,11 +55,11 @@
 			echo 	"<td>".$item['produto_preco']."</td>";
 
 			if($editar == 1 && $excluir == 1){
-				echo "<td><a href='./produto-editar.php?prodID=".$item['produto_id']."&prodNome=&prodPreco="."'>Editar</a><a href='./produto-excluir.php?prodID=".$item['produto_id']."'>Excluir</a></td>";
+				echo "<td><a href='index.php?acao=produto-editar&prodID=".$item['produto_id']."&prodNome=&prodPreco=&prodCategoria="."'>Editar</a><a href='index.php?acao=produto-excluir&prodID=".$item['produto_id']."'>Excluir</a></td>";
 			}else if($editar ==1){
-				echo "<td><a href='./produto-editar.php?prodID=".$item['produto_id']."&prodNome=&prodPreco="."'>Editar</a></td>";
+				echo "<td><a href='index.php?acao=produto-editar&prodID=".$item['produto_id']."&prodNome=&prodPreco=&prodCategoria="."'>Editar</a></td>";
 			}else if($excluir == 1){
-				echo "<td><a href='./produto-excluir.php?prodID=".$item['produto_id']."'>Excluir</a></td>";
+				echo "<td><a href='index.php?acao=produto-excluir&prodID=".$item['produto_id']."'>Excluir</a></td>";
 			}
 
 			echo "</tr>";
@@ -69,10 +68,11 @@
 		echo "</table>";
 		###########################################################
 			
-
+		
 		#Criando os links de paginação dos registros###############
+		if($paginas>1)
 		for ($i=1; $i <= $paginas; $i++) { 
-			echo "<a href='./produto.php?p=".$i."'>[".$i."]</a>";
+			echo "<a href='index.php?acao=Produto&p=".$i."'>[".$i."]</a>";
 		}
 		###########################################################
 	

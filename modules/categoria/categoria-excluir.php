@@ -1,5 +1,5 @@
 <?php 
-	error_reporting(1);
+	
 	$conexao =  new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
 
 

@@ -1,6 +1,5 @@
 <?php 
-	require "../banco_mysql.php";
-	require "../../config.php";
+	
 		
 	$conexao =  new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
 
@@ -14,8 +13,49 @@
 		$produto = $querySelect->fetch();
 		$nome = $produto['produto_nome'];
 		$preco = $produto['produto_preco'];
+		$categoria_id = $produto['categoria_id'];
 
-		print_r($_GET);
+
+		##########Montando o combo box####################
+		#recuperando os dados
+		$conexao =  new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
+
+		$stmtSelect = "SELECT categoria_id,categoria_nome FROM tb_categorias WHERE categoria_apagado = '0';";
+		
+		$querySelect = $conexao->query($stmtSelect);
+
+		$dadosCB = $querySelect->fetchAll();
+
+		
+		#montando o Combo Box
+
+		foreach ($dadosCB as $item) {#para descobrir o nome do $categoria_id
+			if($categoria_id == $item['categoria_id']){
+				$categoria_nome = $item['categoria_nome'];
+			}else{
+				$categoria_nome = "";
+			}
+		}
+
+
+		$CB_categorias = "<select name='prodCategoria'>
+							<option value='$categoria_id'>$categoria_nome</option>";
+
+		foreach ($dadosCB as $item) {
+			
+			$id = $item['categoria_id'];
+			$categoria_nome = $item['categoria_nome'];
+
+			if($categoria_id != $id){
+				$CB_categorias .= "<option value='$id'>$categoria_nome</option>";
+			}
+
+		}
+		$CB_categorias .= "</select>";
+
+		#teminando de montar o Combo Box#################################################
+
+
 
 		$formulario = 
 		"<form method='GET'>
@@ -26,7 +66,9 @@
 			Preco:
 			<input type='text' name='prodPreco' value='$preco'>
 			<br>
-			<input type='submit'>
+			<input type='submit' name='' value='Editar'>
+			$CB_categorias
+			<input type='hidden' name='acao' value='produto-editar'>
 		</form>";
 
 		echo $formulario;
@@ -41,15 +83,18 @@
 				$prodPreco = addslashes($_GET['prodPreco']);
 				$stmtUpdate .= " ,produto_preco ='$prodPreco'"; 
 
+			}
 
-
+			if( isset($_GET['prodCategoria']) && !empty($_GET['prodCategoria'])){
+				$prodCategoria = addslashes($_GET['prodCategoria']);
+				$stmtUpdate .= " ,categoria_id ='$prodCategoria'"; 
 			}
 
 			$stmtUpdate .= " WHERE produto_id='$prodID';";
 			echo $stmtUpdate;
 			$queryUpdate = $conexao->query($stmtUpdate);
 
-			header("Location: produto.php");
+			header("Location: index.php?acao=Produto");
 
 		}		
 		

@@ -1,7 +1,6 @@
 
 <?php
-	#session_start();
-	#require_once "../config.php";
+	
 	
 	extract($_GET);
 	try{
@@ -15,7 +14,7 @@
 		$sql2 = $banco->query("SELECT COUNT(*) as T FROM tb_categorias where categoria_apagado = '0';");
 		$sql2 = $sql2->fetch();
 		$total = $sql2['T'];
-		$paginas = $total/$numero_registros;
+		$paginas = ceil($total/$numero_registros);
 
 		$pg = 1;
 
@@ -72,8 +71,9 @@
 			
 
 		#Criando os links de paginação dos registros###############
+		if($paginas>1)
 		for ($i=1; $i <= $paginas; $i++) { 
-			echo "<a href='modules/categoria/categoria.php?p=".$i."'>[".$i."]</a>";
+			echo "<a href='index.php?acao=Categoria&p=".$i."'>[".$i."]</a>";
 		}
 		###########################################################
 	

@@ -1,11 +1,21 @@
 <?php
-	error_reporting(1);
-	if(isset($_GET['catNome']) && !empty($_GET['catNome'])){
+	
+
+	if(isset($_GET['catNome'])){
 
 		$conexao =  new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
 
-		$categoria_nome = addslashes($_GET['catNome']);
-		$stmtInsert = "INSERT INTO tb_categorias SET categoria_nome ='$categoria_nome', categoria_apagado = '0';";
+		if($_GET['catNome']!=NULL)
+		{
+			$categoria_nome = addslashes($_GET['catNome']);
+			$stmtInsert = "INSERT INTO tb_categorias SET categoria_nome ='$categoria_nome', categoria_apagado = '0';";
+		}
+		else
+		{
+			echo "Faltou preencher o nome da categoria";
+			header("Refresh:2; index.php?acao=categoria-cadastrar");
+			exit;	
+		}
 		
 		$queryInsert = $conexao->query($stmtInsert);
 		$total = $queryInsert->rowCount();
