@@ -29,11 +29,9 @@
 		
 		#montando o Combo Box
 
-		foreach ($dadosCB as $item) {#para descobrir o nome do $categoria_id
+		foreach ($dadosCB as $item) {#para descobrir o nome da $categoria_id
 			if($categoria_id == $item['categoria_id']){
 				$categoria_nome = $item['categoria_nome'];
-			}else{
-				$categoria_nome = "";
 			}
 		}
 
@@ -66,8 +64,11 @@
 			Preco:
 			<input type='text' name='prodPreco' value='$preco'>
 			<br>
-			<input type='submit' name='' value='Editar'>
+			Categoria:
 			$CB_categorias
+			<br>
+			<input type='submit' name='' value='Editar'>
+
 			<input type='hidden' name='acao' value='produto-editar'>
 		</form>";
 

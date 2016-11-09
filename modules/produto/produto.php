@@ -25,7 +25,7 @@
 
 		$sql = $banco->query("SELECT produto_id,produto_nome,produto_preco FROM tb_produtos WHERE produto_apagado !='1' LIMIT $p, $numero_registros;");
 
-		#carregando as configurações###############################
+		#carregando as configurações da pagina de produto##########
 		$usuario_id = $_SESSION['usuario'];
 		$cadastrar = $_SESSION['set']['produto_cadastrar'];
 		$editar = $_SESSION['set']['produto_editar'];
