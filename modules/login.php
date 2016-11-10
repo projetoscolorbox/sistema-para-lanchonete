@@ -1,8 +1,10 @@
 <?php
 	session_start();
-	if(isset($_SESSION['usuario']) && !empty($_SESSION['usuario'])){
+	
+	if( isset($_SESSION['usuario']) && !empty($_SESSION['usuario'])){
 		header("Location: ../index.php");
 	}
+	
 ?>
 <div class="login">
 <form method='POST' action='carregar_funcionalidades.php'>
@@ -17,3 +19,4 @@
 		<input type='submit' name="entrar">
 	</form>
 </div>
+<a href='cliente-cadastrar.php'>Cadastrar</a>

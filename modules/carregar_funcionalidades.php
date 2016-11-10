@@ -1,12 +1,11 @@
 <?php
 	session_start();
 	require_once "../config.php";
+	
 	extract($_POST);
-
-	if ( $_SESSION['usuario']==null ){#recupera o usuario e suas configurações
+	if (!isset($_SESSION) ||  empty($_SESSION['usuario']) ){#recupera o usuario e suas configurações
 
 		try{
-
 			$banco = new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
 			$user = addslashes($user);
 			$password = addslashes($password);

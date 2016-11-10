@@ -16,7 +16,12 @@
 <body>
 	
 		
-		<?php #carregando as outras permissões caso esteja logado
+		<?php 
+		if(isset($_SESSION['nome'])){
+			echo "Bem vindo ao ".$config->getEmpresa()." ".$_SESSION['nome']."<br>";
+		}
+
+		#carregando as outras permissões caso esteja logado
 
 		echo "<a href='?acao=Cardapio'>Cardápio</a>";
 		if ( isset($_SESSION['configuracao']) ) {

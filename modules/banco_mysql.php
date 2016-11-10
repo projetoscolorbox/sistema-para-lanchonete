@@ -22,9 +22,10 @@
 
 		public function query($sql) {
 
-			$query = $this->pdo->query($sql);
-			$this->numRows = $query->rowCount();
-			$this->array = $query->fetchAll();
+			$stmt = $this->pdo->prepare($sql);
+			$stmt->execute();
+			$this->numRows = $stmt->rowCount();
+			$this->array = $stmt->fetchAll();
 
 		}
 
@@ -49,14 +50,14 @@
 				$dados = array();
 
 				foreach ($data as $chave => $valor) {
-
+					if($valor!=NULL)
 					$dados[] = $chave." = '".addslashes($valor)."'";
 				
 				}
 
 				$sql = $sql.implode(", ",$dados).";";
 
-				echo $sql;
+				#echo $sql;
 				$this->query($sql);
 
 			}
@@ -91,7 +92,7 @@
 
 				}
 
-				echo $sql;
+				#echo $sql;
 				$this->query($sql);
 				
 			}
