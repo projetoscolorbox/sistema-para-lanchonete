@@ -73,9 +73,12 @@
 
 		<?php #Usando as funcionalidades permitidas
 			echo "<br>";
-			if(!isset($_GET['acao'])){
+			if( isset($_SESSION['configuracao']) && $_SESSION['configuracao']==1 && !isset($_GET['acao']) ){
+				$_GET['acao'] = "Pedido";
+			}else if( !isset($_GET['acao']) ){
 				$_GET['acao'] = "Cardapio";
 			}
+			
 			
 			switch ($_GET['acao']) {
 
@@ -117,6 +120,10 @@
 
 				case 'Pedido':
 					include "modules/pedido/pedido.php";
+					break;
+
+				case 'abrir-pedido':
+					include "modules/pedido/pedido-abrir.php";
 					break;
 
 				case 'Usuario':
