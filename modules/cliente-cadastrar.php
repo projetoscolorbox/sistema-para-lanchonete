@@ -23,7 +23,9 @@
 			'usuario_email' => $email,
 			'endereco_cep' => $cep,
 			'usuario_data_cadastro' => $data_cadastro = date("Y-m-d H:i:s"),
-			'usuario_complemento' => $complemento
+			'usuario_complemento' => $complemento,
+			'usuario_apagado'=>'0',
+			'configuracao_id'=>'1'
 		);
 
 		$dadosEndereco = array(

@@ -57,7 +57,7 @@
 
 				$sql = $sql.implode(", ",$dados).";";
 
-				#echo $sql;
+				echo $sql;
 				$this->query($sql);
 
 			}
@@ -92,7 +92,7 @@
 
 				}
 
-				#echo $sql;
+				echo $sql;
 				$this->query($sql);
 				
 			}

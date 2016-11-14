@@ -40,10 +40,10 @@
 		
 		echo "<table width='500' border='1'>";
 		echo "<tr>";
-		echo	"<td>Nome</td>";
-		echo 	"<td>Preço</td>";
+		echo	"<th>Nome</td>";
+		echo 	"<th>Preço</td>";
 		if($editar == 1 || $excluir == 1) {
-			echo "<td>Ação</td>";
+			echo "<th>Ação</td>";
 		}
 		echo "</tr>";
 		

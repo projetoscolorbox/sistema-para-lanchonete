@@ -42,9 +42,9 @@
 		
 		echo "<table width='500' border='1'>";
 		echo "<tr>";
-		echo	"<td>Nome</td>";
+		echo	"<th>Nome</td>";
 		if($editar == 1 || $excluir == 1) {
-			echo "<td>Ação</td>";
+			echo "<th>Ação</td>";
 		}
 		echo "</tr>";
 		

@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	include_once 'config.php';
+	require_once "modules/banco_mysql.php";
 ?>
 <!DOCTYPE html>
 <html lang='pt-br'>
@@ -21,9 +22,11 @@
 			echo "Bem vindo ao ".$config->getEmpresa()." ".$_SESSION['nome']."<br>";
 		}
 
-		#carregando as outras permissões caso esteja logado
-
 		echo "<a href='?acao=Cardapio'>Cardápio</a>";
+
+
+
+		#carregando as outras permissões caso esteja logado
 		if ( isset($_SESSION['configuracao']) ) {
 
 			if($_SESSION['set']['pedido'] == 1){
@@ -73,6 +76,7 @@
 
 		<?php #Usando as funcionalidades permitidas
 			echo "<br>";
+			
 			if( isset($_SESSION['configuracao']) && $_SESSION['configuracao']==1 && !isset($_GET['acao']) ){
 				$_GET['acao'] = "Pedido";
 			}else if( !isset($_GET['acao']) ){
@@ -128,6 +132,18 @@
 
 				case 'Usuario':
 					include "modules/usuario/usuario.php";
+					break;
+
+				case 'usuario-cadastrar':
+					include "modules/usuario/usuario-cadastrar.php";
+					break;
+
+				case 'usuario-editar':
+					include "modules/usuario/usuario-editar.php";
+					break;
+
+				case 'usuario-excluir':
+					include "modules/usuario/usuario-excluir.php";
 					break;
 
 				case 'Configuracao':

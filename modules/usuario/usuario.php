@@ -1,57 +1,89 @@
-carregando usuario...
-<form method="GET">
-	<input type='submit' value='Buscar os primeiros' >
-	<input type='number' size='1' name='quantidade' value=10>
-</form>
+
 <?php
+	
+	
 	extract($_GET);
 	try{
 
-			$pagina = 0;
-			$n = 10;
-			if (!empty($quantidade)) {
-				$n = $quantidade;
+		$banco = new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
+		
+
+		$numero_registros = 10;
+		
+
+		$sql2 = $banco->query("SELECT COUNT(*) as T FROM tb_usuarios where usuario_apagado = '0';");
+		$sql2 = $sql2->fetch();
+		$total = $sql2['T'];
+		$paginas = ceil($total/$numero_registros);
+
+		$pg = 1;
+
+		if(isset($_GET['p']) && !empty($_GET['p'])){
+			$pg = addslashes($_GET['p']);
+		}
+
+		$p = ($pg - 1) * $numero_registros;
+
+
+		$sql = $banco->query("SELECT usuario_nome,usuario_id FROM tb_usuarios WHERE usuario_apagado !='1' LIMIT $p, $numero_registros;");
+
+		#carregando as configurações###############################
+		$usuario_id = $_SESSION['usuario'];
+		$cadastrar = $_SESSION['set']['usuario_cadastrar'];
+		$editar = $_SESSION['set']['usuario_editar'];
+		$excluir = $_SESSION['set']['usuario_excluir'];
+
+
+
+		if($cadastrar == 1){
+			echo "<a href='index.php?acao=usuario-cadastrar'>Cadastrar</a>";
+		}
+
+		
+		echo "<table width='500' border='1'>";
+		echo "<tr>";
+		echo	"<td>Nome</td>";
+		if($editar == 1 || $excluir == 1) {
+			echo "<td>Ação</td>";
+		}
+		echo "</tr>";
+		
+		
+		foreach ($sql->fetchAll() as  $item) {
+
+			echo "<tr>";
+
+			echo	"<td>".$item['usuario_nome']."</td>";
+
+			if($editar == 1 && $excluir == 1){
+				echo "<td><a href='index.php?acao=usuario-editar&userID=".$item['usuario_id']."'>Editar</a><a href='index.php?acao=usuario-excluir&userID=".$item['usuario_id']."'>Excluir</a></td>";
+			}else if($editar ==1){
+				echo "<td><a href='index.php?acao=usuario-editar&userID=".$item['usuario_id']."'>Editar</a></td>";
+			}else if($excluir == 1){
+				echo "<td><a href='index.php?acao=usuario-excluir&userID=".$item['usuario_id']."'>Excluir</a></td>";
 			}
 
-			$banco = new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
-
-
-			$sql = $banco->query("SELECT usuario_id,usuario_nome,usuario_telefone,usuario_email,usuario_data_cadastro FROM tb_usuarios LIMIT $pagina, $n;");
-			$total = $banco->query("SELECT COUNT(*) as c FROM tb_usuarios");
-			$total = $total->fetch();
-
-			#Criacao da tabela
-			echo "<table width='500' border='1'>";
-			echo "<tr>
-				<td>ID</td>
-				<td>Nome Id</td>
-				<td>Telefone</td>
-				<td>E-mail</td>
-				<td>Data de Cadastro</td>
-			</tr>";
-			foreach ($sql->fetchAll() as $item) {
-				echo "<tr>
-					<td>".$item['usuario_id']."</td>
-					<td>".$item['usuario_nome']."</td>
-					<td>".$item['usuario_telefone']."</td>
-					<td>".$item['usuario_email']."</td>
-					<td>".$item['usuario_data_cadastro']."</td>
-				</tr>";
-			}
-			
-			echo "</table>";
-			###################################
-
-			#Criando os links###############
-			for ($i=1; $i <= $total['c']; $i++) { 
-				echo "<a href='./usuario.php?quantidade=".$i."'>[".$i."]</a>";
-			}
-
-			################################
-
-		}catch(PDOException $e){
-
-			echo "Falhou".$e->getMessage();
+			echo "</tr>";
 			
 		}
+		echo "</table>";
+		###########################################################
+			
+
+		#Criando os links de paginação dos registros###############
+		if($paginas>1)
+		for ($i=1; $i <= $paginas; $i++) { 
+			echo "<a href='index.php?acao=Usuario&p=".$i."'>[".$i."]</a>";
+		}
+		###########################################################
+	
+
+	}catch(PDOException $e){
+
+		echo "Falhou".$e->getMessage();
+		
+	}
+
+
+			
 ?>
