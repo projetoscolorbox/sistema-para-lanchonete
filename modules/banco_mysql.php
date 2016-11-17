@@ -57,8 +57,61 @@
 
 				$sql = $sql.implode(", ",$dados).";";
 
-				echo $sql;
+				//echo $sql;
 				$this->query($sql);
+				return $this->pdo->lastInsertId();
+
+			}
+		}
+
+		public function insertValues($table, $data = array(), $time = NULL){
+
+			if(!empty($table) && ((is_array($data)) && (count($data) > 0))){
+			
+				$sql = "INSERT INTO ".$table." (";	
+
+				if(is_array($time))
+					$sql .= $time[0].",";
+
+				$dados = array();
+				$linhas = 0;
+				foreach ($data as $chave => $valor) {
+					$dados[] = $chave;
+					$linhas = count($valor);
+				}
+
+				if($linhas>0){
+					$sql .= implode(", ",$dados).") VALUES ('";
+
+					if(is_array($time)){
+						$sql .= $time[1]."','";	
+					}
+
+
+					$registros = array();
+					foreach ($data[$chave] as $chave2 => $valor) {
+
+						$valores = array();
+						
+						foreach ($data as $chave => $dados) {
+							$valores[] = $dados[$chave2];
+						}
+
+						$registros[] = implode("','",$valores);
+					}
+
+					if(is_array($time)){
+						$sql .= implode("'),('".$time[1]."','",$registros);	
+					}
+					else{
+						$sql .= implode("'),('",$registros);
+					}
+					$sql .= "');";
+
+					echo $sql;
+					$this->query($sql);
+				}
+				
 
 			}
 		}

@@ -91,7 +91,7 @@
 			<br>
 			$CB_configuracoes
 			<br><br>
-			<input type='submit' name='' value='Editar'>
+			<input type='submit' name='' value='Cadastrar'>
 			<input type='hidden' name='acao' value='usuario-editar'>
 		</form>";
 
@@ -106,19 +106,22 @@
 				
 				if( !empty($_POST[$key]) ){
 
-					$dadosUpdate[$key] = $_POST[$key];
+					$dadosInsert[$key] = $_POST[$key];
 
 				}
 
 			}
-			array_pop($dadosUpdate);
+
+			array_pop($dadosInsert);
+
+			$dadosInsert['usuario_data_cadastro'] = date("Y-m-d H:i:s");
 
 			#procurando os dados relacionandos ao endereço
 			$n = 0;
-			foreach ($dadosUpdate as $key => $value) {
+			foreach ($dadosInsert as $key => $value) {
 
 				if( ($key == "endereco_logradouro") OR ($key == "endereco_bairro") OR ($key == "endereco_localidade")){
-					$aux = array_slice($dadosUpdate, $n, 1, true);
+					$aux = array_slice($dadosInsert, $n, 1, true);
 					$endereco[$key] = $aux[$key];
 				}
 
@@ -128,19 +131,19 @@
 
 
 			if( isset($endereco) && !empty($endereco) ){
-				$dadosUpdate = array_diff_assoc($dadosUpdate, $endereco);
+				$dadosInsert = array_diff_assoc($dadosInsert, $endereco);
 			}
 
 			$conexao = new Banco($_SERVER['HTTP_HOST'],$config->getBaseDados(),$config->getLogin(),$config->getSenha());
 				
 			if( isset($endereco) && !empty($endereco) ){
-				$endereco['endereco_cep'] = $dadosUpdate['endereco_cep'];
+				$endereco['endereco_cep'] = $dadosInsert['endereco_cep'];
 				$endereco['endereco_apagado'] = '0';
 				$conexao->insert("tb_enderecos",$endereco);
 			}
 
-			$dadosUpdate['usuario_apagado'] = '0';
-			$conexao->insert("tb_usuarios",$dadosUpdate);
+			$dadosInsert['usuario_apagado'] = '0';
+			$conexao->insert("tb_usuarios",$dadosInsert);
 
 
 			#print_r($dadosUpdate);

@@ -126,8 +126,16 @@
 					include "modules/pedido/pedido.php";
 					break;
 
-				case 'abrir-pedido':
+				case 'pedido-abrir':
 					include "modules/pedido/pedido-abrir.php";
+					break;
+
+				case 'pedido-gerenciar':
+					include "modules/pedido/pedido-gerenciar.php";
+					break;
+
+				case 'pedido-finalizar':
+					include "modules/pedido/pedido-finalizar.php";
 					break;
 
 				case 'Usuario':
