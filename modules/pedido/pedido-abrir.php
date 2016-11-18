@@ -93,16 +93,17 @@
 			}
 
 			//Checando se n gravamos um pedido sem itens
-			$stmtSelect = "SELECT * FROM tb_itens WHERE pedido_id='$pedido_id';";
+			$conexao = new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
+			$stmtSelect = "SELECT item_id FROM tb_itens WHERE pedido_id='$pedido_id';";
 			$querySelect = $conexao->query($stmtSelect);
-			
-			if($querySelect == NULL){
+			$dados = $querySelect->fetchAll();
+
+			print_r($dados);		
+			if( empty($dados) ){
 				$stmtUpdate = "UPDATE tb_pedidos SET pedido_apagado ='1' WHERE pedido_id ='$pedido_id';";
 				$conexao->query($stmtUpdate);
 			}
 				
-			
-			
 			
 
 			header("Location: index.php?acao=Pedido");
