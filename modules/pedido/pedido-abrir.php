@@ -77,7 +77,7 @@
 			$balanco = 0;
 			for($i=0; $i<$linhas; $i++){
 
-				if( ($itens['item_quantidade'][$i] == NULL) || ($itens['item_quantidade'][$i] == "") || ($itens['item_quantidade'][$i] == '0')){ //rearrumando os indices
+				if( ($itens['item_quantidade'][$i] == NULL) || ($itens['item_quantidade'][$i] == "") || ($itens['item_quantidade'][$i] <= '0')){ //rearrumando os indices
 					unset($itens['item_quantidade'][$i]);
 					unset($itens['produto_preco'][$i]);
 					unset($itens['produto_id'][$i]);
@@ -87,11 +87,23 @@
 			}
 
 
-			//print_r($itens);
 			
 			if($pedido_id != 0){
 				$conexao->insertValues("tb_itens",$itens); // gravacao dos itens
 			}
+
+			//Checando se n gravamos um pedido sem itens
+			$stmtSelect = "SELECT * FROM tb_itens WHERE pedido_id='$pedido_id';";
+			$querySelect = $conexao->query($stmtSelect);
+			
+			if($querySelect == NULL){
+				$stmtUpdate = "UPDATE tb_pedidos SET pedido_apagado ='1' WHERE pedido_id ='$pedido_id';";
+				$conexao->query($stmtUpdate);
+			}
+				
+			
+			
+			
 
 			header("Location: index.php?acao=Pedido");
 
