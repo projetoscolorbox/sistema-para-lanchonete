@@ -57,7 +57,8 @@
 			$pedidos = array(
 				'pedido_data' => date("Y-m-d H:i:s"),
 				'pedido_apagado' => '0',
-				'usuario_id' => $_SESSION['usuario']
+				'usuario_id' => $_SESSION['usuario'],
+				'pedido_andamento' => 'Aguardando Recepção'
 			);
 			//Recuperando o id do pedido para usar na gravacao do item e gravando o pedido
 			$pedido_id = $conexao->insert("tb_pedidos",$pedidos);
@@ -76,7 +77,7 @@
 			$balanco = 0;
 			for($i=0; $i<$linhas; $i++){
 
-				if( ($itens['item_quantidade'][$i] == NULL) || ($itens['item_quantidade'][$i] == "") ){ //rearrumando os indices
+				if( ($itens['item_quantidade'][$i] == NULL) || ($itens['item_quantidade'][$i] == "") || ($itens['item_quantidade'][$i] == '0')){ //rearrumando os indices
 					unset($itens['item_quantidade'][$i]);
 					unset($itens['produto_preco'][$i]);
 					unset($itens['produto_id'][$i]);

@@ -25,41 +25,41 @@
 			$usuario_nome = $dados['0']['usuario_nome'];
 
 
-		$tabela = "<table width='500' border='1'>
-					<tr>
-						<th width='250'>Usuario:</th>
-						<td align='center'>$usuario_nome</td>
-					</tr>
-				   </table><br>";
-
-		
-		foreach ($dados as $pedidos) {
-
-			$pedido_id = $pedidos['pedido_id'];
-			$item_quantidade = $pedidos['item_quantidade'];
-			$produto_nome = $pedidos['produto_nome'];	
-			$tabela .=	"
-					<table width='500' border='1'>
+			$tabela = "<table width='500' border='1'>
 						<tr>
-							<th width='250'>Pedido ID:</th>
-							<td align='center'>$pedido_id</td>
+							<th width='250'>Usuario:</th>
+							<td align='center'>$usuario_nome</td>
 						</tr>
-					</table>
-					<table width='500' border='1'>
-						<tr>
-							<th width='250'>Quantidade</th>
-							<th>Produto</th>
-						</tr>
-						<tr>
-							<td align='center'>$item_quantidade</td>
-							<td align='center'>$produto_nome</td> 
-						</tr>
-					</table><br>";
-			}	
+					   </table><br>";
+
+			
+			foreach ($dados as $pedidos) {
+
+				$pedido_id = $pedidos['pedido_id'];
+				$item_quantidade = $pedidos['item_quantidade'];
+				$produto_nome = $pedidos['produto_nome'];	
+				$tabela .=	"
+						<table width='500' border='1'>
+							<tr>
+								<th width='250'>Pedido ID:</th>
+								<td align='center'>$pedido_id</td>
+							</tr>
+						</table>
+						<table width='500' border='1'>
+							<tr>
+								<th width='250'>Quantidade</th>
+								<th>Produto</th>
+							</tr>
+							<tr>
+								<td align='center'>$item_quantidade</td>
+								<td align='center'>$produto_nome</td> 
+							</tr>
+						</table><br>";
+				}	
 
 
-		
-		echo $tabela;
+			
+			echo $tabela;
 		}
 
 		
@@ -67,26 +67,76 @@
 	}else{
 		//Caso n seja cliente
 
-		if($_SESSION['set']['pedido_gerenciar']=="1"){
-			echo "<a href='acao=pedido-gerenciar&pedID=$pedido_id'>Gerenciar</a>";
-		}
-		if($_SESSION['set']['pedido_finalizar']=="1"){
-			echo "<a href=''>Finalizar</a>";
-		}
+		//Recuperando as informações de pedidos guardadas no banco e montando a tabela
+		$conexao = new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
+
+		$stmtSelect = "SELECT pedido_id,pedido_andamento FROM tb_pedidos WHERE pedido_apagado='0' AND pedido_andamento != 'Finalizado' ORDER BY pedido_id DESC;";
+		$querySelect = $conexao->query($stmtSelect);
+		$pedidos = $querySelect->fetchAll();
+		$total = $querySelect->rowCount();
+
+
 		#carregando as configurações da pagina de pedido do funcionario##########
 		$gerenciar = $_SESSION['set']['pedido_gerenciar'];
 		$finalizar = $_SESSION['set']['pedido_finalizar'];
 
-		$tabela = "<table width='800' border='1'>
-					<tr>
-						<th>ID do Pedido</th>
-						<th>Nome do Cliente</th>
-						<th>Endereco</th>
-						<th>Andamento do Pedido</th>
-						<th>Ação</th>
-					<tr>
+		//Montando a tabela com os pedidos
+		$tabela = "";
+		foreach ($pedidos as $pedido) {
+
+
+			//Carregando as funcionalidades
+			if($finalizar == 1){
+				$tabela .= "<td><a href='index.php?acao=pedido-finalizar&pedID=".$pedido['pedido_id']."'>Finalizar</a></td>";
+			}
+
+			if($gerenciar == 1){
+				$tabela .= "<td><a href='index.php?acao=pedido-gerenciar&pedID=".$pedido['pedido_id']."'>Alterar Andamento</a></td>";
+			}
+			$stmtSelect = "SELECT I.item_quantidade,I.produto_id,I.produto_preco,P.produto_nome as produto_nome FROM tb_itens as I join tb_produtos as P on P.produto_id = I.produto_id WHERE pedido_id = '".$pedido['pedido_id']."';";
+			$querySelect = $conexao->query($stmtSelect);
+			$itens = $querySelect->fetchAll();
+			$balanco = 0;
+
+			$tabela .= "<table width='500' border='1'>
+						<tr>
+							<th>Pedido ID:</th>
+							<th>".$pedido['pedido_id']."</th>
+						</tr>
+						<tr>
+							<th>Andamento</th>
+							<th>".$pedido['pedido_andamento']."</th>
+						</tr>
 					</table>";
 
+			//listando os itens do pedido
+			$tabela .= "<table width='500' border='1'>
+							<tr>
+								<th>Nome do produto</th>
+								<th>Preco</th>
+								<th>Quandidade</th>
+							</tr>";
+
+			foreach ($itens as $item) {				
+
+				$tabela .= "<tr>
+								<td>".$item['produto_nome']."</td>
+								<td>".$item['produto_preco']."</td>
+								<td>".$item['item_quantidade']."</td>";
+
+				$balanco += $item['produto_preco']*$item['item_quantidade'] ;
+
+			}
+						
+			$tabela .= "		
+							</tr>
+							<tr>
+								<th colspan='2'>Total</th>
+								<td>R$".$balanco."</td>
+							</tr>
+						</table>";
+		}
+		
 		echo $tabela;
 
 	}

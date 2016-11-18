@@ -38,34 +38,35 @@
 		}
 
 		
-		echo "<table width='500' border='1'>";
-		echo "<tr>";
-		echo	"<th>Nome</td>";
-		echo 	"<th>Preço</td>";
+		$tabela = "<table width='500' border='1'>
+					<tr>
+						<th>Nome</th>
+						<th>Preço</th>";
 		if($editar == 1 || $excluir == 1) {
-			echo "<th>Ação</td>";
+			$tabela .= "<th>Ação</td>";
 		}
-		echo "</tr>";
+		$tabela .= "</tr>";
 		
 		
 		foreach ($sql->fetchAll() as  $item) {
 			
-			echo "<tr>";
-			echo	"<td>".$item['produto_nome']."</td>";
-			echo 	"<td>".$item['produto_preco']."</td>";
+			$tabela .= "<tr>
+							<td>".$item['produto_nome']."</td>
+							<td>".$item['produto_preco']."</td>";
 
 			if($editar == 1 && $excluir == 1){
-				echo "<td><a href='index.php?acao=produto-editar&prodID=".$item['produto_id']."&prodNome=&prodPreco=&prodCategoria="."'>Editar</a><a href='index.php?acao=produto-excluir&prodID=".$item['produto_id']."'>Excluir</a></td>";
+				$tabela .= "<td><a href='index.php?acao=produto-editar&prodID=".$item['produto_id']."&prodNome=&prodPreco=&prodCategoria="."'>Editar</a><a href='index.php?acao=produto-excluir&prodID=".$item['produto_id']."'>Excluir</a></td>";
 			}else if($editar ==1){
-				echo "<td><a href='index.php?acao=produto-editar&prodID=".$item['produto_id']."&prodNome=&prodPreco=&prodCategoria="."'>Editar</a></td>";
+				$tabela .= "<td><a href='index.php?acao=produto-editar&prodID=".$item['produto_id']."&prodNome=&prodPreco=&prodCategoria="."'>Editar</a></td>";
 			}else if($excluir == 1){
-				echo "<td><a href='index.php?acao=produto-excluir&prodID=".$item['produto_id']."'>Excluir</a></td>";
+				$tabela .= "<td><a href='index.php?acao=produto-excluir&prodID=".$item['produto_id']."'>Excluir</a></td>";
 			}
 
-			echo "</tr>";
+			$tabela .= "</tr>";
 			
 		}
-		echo "</table>";
+		$tabela .= "</table>";
+		echo $tabela;
 		###########################################################
 			
 		
