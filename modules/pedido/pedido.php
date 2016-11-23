@@ -1,13 +1,14 @@
-
+<div class='titulo'>Pedidos</div>
 <?php
+	
+	echo "<meta HTTP-EQUIV='refresh' CONTENT='60;URL=index.php?acao=Pedido'>";
 
 	$usuario_id = $_SESSION['usuario'];
 
 	if($_SESSION['configuracao'] == "1"){
 		//Caso seja cliente
 
-		echo "<a href='?acao=pedido-abrir'>Abrir novo Pedido</a>";
-
+		echo "<div class='funcao'><a href='?acao=pedido-abrir' class='funcao'>Abrir novo Pedido</a></div>";
 		//Recuperando as informações de pedidos guardadas no banco e montando a tabela
 		$conexao = new PDO("mysql:dbname=".$config->getBaseDados().";host=".$_SERVER['HTTP_HOST'].";charset=utf8",$config->getLogin(),$config->getSenha());
 
@@ -25,7 +26,7 @@
 			$itens = $querySelect->fetchAll();
 			$balanco = 0;
 
-			$tabela .= "<table width='500' border='1'>
+			$tabela .= "<table class='table-conteiner'>
 						<tr>
 							<th>Pedido ID:</th>
 							<th>".$pedido['pedido_id']."</th>
@@ -37,11 +38,11 @@
 					</table>";
 
 			//listando os itens do pedido
-			$tabela .= "<table width='500' border='1'>
+			$tabela .= "<table class='table-conteiner'>
 							<tr>
 								<th>Nome do produto</th>
 								<th>Preco</th>
-								<th>Quandidade</th>
+								<th>Quantidade</th>
 							</tr>";
 
 			foreach ($itens as $item) {				
@@ -91,18 +92,18 @@
 
 			//Carregando as funcionalidades
 			if($finalizar == 1){
-				$tabela .= "<td><a href='index.php?acao=pedido-finalizar&pedID=".$pedido['pedido_id']."'>Finalizar</a></td>";
+				$tabela .= "<div class='funcao'><a href='index.php?acao=pedido-finalizar&pedID=".$pedido['pedido_id']."' >Finalizar</a></div>";
 			}
 
 			if($gerenciar == 1){
-				$tabela .= "<td><a href='index.php?acao=pedido-gerenciar&pedID=".$pedido['pedido_id']."'>Alterar Andamento</a></td>";
+				$tabela .= "<div class='funcao'><a href='index.php?acao=pedido-gerenciar&pedID=".$pedido['pedido_id']."' >Alterar Andamento</a></div>";
 			}
 			$stmtSelect = "SELECT I.item_quantidade,I.produto_id,I.produto_preco,P.produto_nome as produto_nome FROM tb_itens as I join tb_produtos as P on P.produto_id = I.produto_id WHERE pedido_id = '".$pedido['pedido_id']."';";
 			$querySelect = $conexao->query($stmtSelect);
 			$itens = $querySelect->fetchAll();
 			$balanco = 0;
 
-			$tabela .= "<table width='500' border='1'>
+			$tabela .= "<table class='table-conteiner'>
 						<tr>
 							<th>Pedido ID:</th>
 							<th>".$pedido['pedido_id']."</th>
@@ -114,11 +115,11 @@
 					</table>";
 
 			//listando os itens do pedido
-			$tabela .= "<table width='500' border='1'>
+			$tabela .= "<table class='table-conteiner'>
 							<tr>
 								<th>Nome do produto</th>
 								<th>Preco</th>
-								<th>Quandidade</th>
+								<th>Quantidade</th>
 							</tr>";
 
 			foreach ($itens as $item) {				

@@ -56,7 +56,9 @@
 
 
 		$formulario = 
-		"<form method='GET'>
+		"<div class='titulo'>Editar Produto</div>
+		<div class='formulario'>
+		<form method='GET'>
 			<input type='hidden' name='prodID' value='$prodID'>
 			Nome:
 			<input type='text' name='prodNome' value='$nome'>
@@ -70,7 +72,8 @@
 			<input type='submit' name='' value='Editar'>
 
 			<input type='hidden' name='acao' value='produto-editar'>
-		</form>";
+		</form>
+		</div>";
 
 		echo $formulario;
 

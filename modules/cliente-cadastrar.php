@@ -1,8 +1,8 @@
 <?php
+	
+	//cadasdra um cliente com a configuração de cliente e com o flag usuario_identidade = 0
+
 	#error_reporting(0);
-	session_start();
-	require_once "banco_mysql.php";
-	require_once "../config.php";
 
 	if(isset($_POST) && !empty($_POST)){
 
@@ -25,7 +25,8 @@
 			'usuario_data_cadastro' => $data_cadastro = date("Y-m-d H:i:s"),
 			'usuario_complemento' => $complemento,
 			'usuario_apagado'=>'0',
-			'configuracao_id'=>'1'
+			'configuracao_id'=>'1',
+			'usuario_identidade'=>'0'
 		);
 
 		$dadosEndereco = array(
@@ -68,12 +69,14 @@
 
 		}
 
-		echo "Faltou preecher ou o login ou a senha.";
+		echo "Faltou preecher um ou mais campos obrigatórios.";
 		
 	}
 	
 
 ?>
+<div class='titulo'>Cadastrar</div>
+<div class='formulario'>
 <form method='POST' >
 	<label>Usuário:</label>
 	<br>
@@ -132,3 +135,4 @@
 	<br><br>
 	<input type='submit' name='entrar' value='Cadastrar'>
 </form>
+</div>

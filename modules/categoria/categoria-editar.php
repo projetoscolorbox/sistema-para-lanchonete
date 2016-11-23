@@ -14,7 +14,9 @@
 
 
 		$formulario = 
-		"<form method='GET'>
+		"<div class='titulo'>Editar Categoria</div>
+		<div class='formulario'>
+			<form method='GET'>
 			<input type='hidden' name='catID' value='$catID'>
 			Nome:
 			<br>
@@ -22,7 +24,8 @@
 			<br>
 			<input type='submit' name='' value='Editar'>
 			<input type='hidden' name='acao' value='categoria-editar'>
-		</form>";
+		</form>
+		</div>";
 
 		echo $formulario;
 

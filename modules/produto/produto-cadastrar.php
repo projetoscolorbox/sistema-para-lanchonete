@@ -55,7 +55,8 @@
 
 	
 ?>
-
+<div class='titulo'>Cadastrar Produto</div>
+<div class='formulario'>
 <form method='GET'>
 	Nome:
 	<input type='text' name='prodNome'>
@@ -77,7 +78,7 @@
 
 
 		#montando o Combo Box
-		$CB_categorias = "<select name='prodCategoria'>";
+		$CB_categorias = "Categoria: <select name='prodCategoria'>";
 
 		foreach ($dadosCB as $item) {
 			
@@ -96,3 +97,4 @@
 	<input type='submit' name='' value='Cadastrar'>
 	<input type='hidden' name='acao' value='produto-cadastrar'>
 </form>
+</div>

@@ -14,11 +14,11 @@
 		$dadosProduto = $querySelectProduto->fetchAll();
 
 		#Montando o cardapio adjunto ao formulario
-		$Formulario_Pedido = "<form method='POST'>";
+		$Formulario_Pedido = "<div class='funcao'><form method='POST'>";
 		$cardapio = "";
 		foreach ($dadosCategoria as $categoria) {
 
-			$cardapio .="<table width='500' border='1'>
+			$cardapio .="<table class='table-conteiner'>
 							<tr>
 								<th colspan='3'>".$categoria['categoria_nome']."</th>
 							</tr>";
@@ -40,8 +40,8 @@
 						</table>";
 		}
 
-		$Formulario_Pedido .= $cardapio."<input type='submit' value='Montar Pedido'>
-			</form>";
+		$Formulario_Pedido .= $cardapio."<input type='submit' value='Montar Pedido' class='botao-sucesso'>
+			</form></div>";
 		echo $Formulario_Pedido;
 
 		//usando o formulario para salvar o Pedido

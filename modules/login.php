@@ -1,13 +1,14 @@
 <?php
-	session_start();
+	//se estiver logado redireciona para a pagina inicial
 	
 	if( isset($_SESSION['usuario']) && !empty($_SESSION['usuario'])){
-		header("Location: ../index.php");
+		header("Location: index.php");
 	}
 	
 ?>
-<div class="login">
-<form method='POST' action='carregar_funcionalidades.php'>
+<div class='titulo'>Logar</div>
+<div class='formulario'>
+<form method='POST' action='modules/carregar_funcionalidades.php'>
 		<label>Usuário:</label>
 		<br>
 		<input type='text' name='user'>
@@ -18,5 +19,5 @@
 		<br><br>
 		<input type='submit' name="entrar">
 	</form>
+	<a href='?acao=cliente-cadastrar'>Cadastrar</a>
 </div>
-<a href='cliente-cadastrar.php'>Cadastrar</a>

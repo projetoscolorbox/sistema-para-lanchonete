@@ -1,4 +1,4 @@
-
+<div class='titulo'>Categorias</div>
 <?php
 	
 	
@@ -36,11 +36,11 @@
 
 
 		if($cadastrar == 1){
-			echo "<a href='index.php?acao=categoria-cadastrar'>Cadastrar</a>";
+			echo "<div class='funcao'><a href='index.php?acao=categoria-cadastrar'>Cadastrar</a></div>";
 		}
 
 		
-		echo "<table width='500' border='1'>";
+		echo "<table class='table-conteiner'>";
 		echo "<tr>";
 		echo	"<th>Nome</td>";
 		if($editar == 1 || $excluir == 1) {

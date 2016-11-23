@@ -1,23 +1,105 @@
+body {
+	color: #5D5D5D;
+	background: #DCDCDC;
+	height: 100%;
+	font-size: 14px;
+	line-height: 1;
+}
 
-.login {
 
-	width: 300px;
-	height: 150px;
-	background-color:#2222AA;
-	margin:auto;
-	margin-top: 16%;
+
+
+.logo-barra{
+	width: 100%;
+	height: 60px;
+	display: block;
+	float: none;
+	background: #FFCC00 url(../img/png/logo_cdl.png) no-repeat center center;
+}
+
+.welcome {
+	margin: auto;
+	width: 800px;
+	margin-top: 30px;
+	color: #96893f;
+	font-size: 15px;
+}
+
+/*Barra de menu*/
+.menu{
+	margin: 0 auto;
+	margin-top: 5px;
+	padding: 0;
+	background-color: #ff4242;
+	position: relative;
+	z-index: 333;
+	width: 800px;
 
 }
 
-label{
-	color:#FFF;
-	margin-left: 38%;
+ul {
+	list-style: none;
 }
 
-input{
-	margin-left: 18%;
+li {
+	padding: 20px 30px;
+	display: inline-block;
+	position: relative;
+	text-align: center;
 }
 
-form input[type='submit']{
-	margin-left: 37%;
+.funcao{
+	width: 800px;
+	height: 15px;
+	margin: 0 auto;
+}
+
+/*Tabelas*/
+
+table {
+	border-collapse: collapse;
+	width: 800px;
+}
+table tr td, table tr th {
+	border: 1px solid #BFBFBF;
+	padding: 5px;
+}
+
+table th{
+	background: #fcd53a;
+}
+
+table td{
+	width: 80%;
+}
+
+.table-conteiner{
+	margin: 0 auto;
+}
+
+
+
+
+/*Formularios*/
+
+.formulario {
+	width: 800px;
+	margin: auto;
+	background-color: none;
+}
+
+.titulo{
+	background-color: none;
+	width: 800px;
+	margin: auto;
+}
+
+input[type='submit']{
+	color: #b0ccaf;
+	background-color: #21561f;
+	margin-top: 10px;
+}
+
+input[type='text']{
+
 }

@@ -29,7 +29,8 @@
 	}
 	
 ?>
-
+<div class='titulo'>Cadastrar Categoria</div>
+<div class='formulario'>
 <form method='GET' >
 	Nome:
 	<input type='text' name='catNome'>
@@ -37,3 +38,4 @@
 	<input type='submit' name='' value='Cadastrar'>
 	<input type='hidden' name='acao' value='categoria-cadastrar'>
 </form>
+</div>

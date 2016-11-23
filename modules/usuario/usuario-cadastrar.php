@@ -31,7 +31,9 @@
 	#teminando de montar o formulario#################################################
 
 	$formulario = 
-		"<form method='POST' >
+		"<div class='titulo'>Cadastrar Usuario</div>
+		<div class='formulario'>
+		<form method='POST' >
 			<label>Usuário:</label>
 			<br>
 			<input type='text' name='usuario_login' >
@@ -93,7 +95,8 @@
 			<br><br>
 			<input type='submit' name='' value='Cadastrar'>
 			<input type='hidden' name='acao' value='usuario-editar'>
-		</form>";
+		</form>
+		</div>";
 
 		echo $formulario;
 

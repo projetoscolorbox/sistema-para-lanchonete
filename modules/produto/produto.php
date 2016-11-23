@@ -1,3 +1,4 @@
+<div class='titulo'>Produtos</div>
 <?php
 	extract($_GET);
 	try{
@@ -34,11 +35,11 @@
 
 
 		if($cadastrar == 1){
-			echo "<a href='index.php?acao=produto-cadastrar'>Cadastrar</a>";
+			echo "<div class='funcao'><a href='index.php?acao=produto-cadastrar'>Cadastrar</a></div>";
 		}
 
 		
-		$tabela = "<table width='500' border='1'>
+		$tabela = "<table class='table-conteiner'>
 					<tr>
 						<th>Nome</th>
 						<th>Preço</th>";

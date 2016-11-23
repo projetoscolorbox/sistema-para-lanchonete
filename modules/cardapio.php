@@ -1,4 +1,4 @@
-
+<div class='titulo'>Cardápio</div>
 <?php
 
 	try{
@@ -18,7 +18,7 @@
 		$cardapio = "";
 		foreach ($dadosCategoria as $categoria) {
 
-			$cardapio .="<table width='500' border='1'>
+			$cardapio .="<table class='table-conteiner'>
 							<tr>
 								<th colspan='2'>".$categoria['categoria_nome']."</td>
 							</tr>";

@@ -1,4 +1,4 @@
-
+<div class='titulo'>Usuarios</div>
 <?php
 	
 	
@@ -36,15 +36,15 @@
 
 
 		if($cadastrar == 1){
-			echo "<a href='index.php?acao=usuario-cadastrar'>Cadastrar</a>";
+			echo "<div class='funcao'><a href='index.php?acao=usuario-cadastrar'>Cadastrar</a></div>";
 		}
 
 		
-		echo "<table width='500' border='1'>";
+		echo "<table class='table-conteiner'>";
 		echo "<tr>";
-		echo	"<td>Nome</td>";
+		echo	"<th>Nome</th>";
 		if($editar == 1 || $excluir == 1) {
-			echo "<td>Ação</td>";
+			echo "<th>Ação</th>";
 		}
 		echo "</tr>";
 		
