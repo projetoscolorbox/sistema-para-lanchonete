@@ -18,7 +18,7 @@
 		<div class='formulario'>
 			<form method='GET'>
 			<input type='hidden' name='catID' value='$catID'>
-			Nome:
+			<label>Nome:</label>
 			<br>
 			<input type='text' name='catNome' value='$nome'>
 			<br>

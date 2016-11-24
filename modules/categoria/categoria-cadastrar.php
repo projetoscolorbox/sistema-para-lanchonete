@@ -32,7 +32,7 @@
 <div class='titulo'>Cadastrar Categoria</div>
 <div class='formulario'>
 <form method='GET' >
-	Nome:
+	<label>Nome:</label>
 	<input type='text' name='catNome'>
 	<br>
 	<input type='submit' name='' value='Cadastrar'>

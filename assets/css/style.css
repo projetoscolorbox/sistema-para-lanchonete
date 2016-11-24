@@ -6,9 +6,6 @@ body {
 	line-height: 1;
 }
 
-
-
-
 .logo-barra{
 	width: 100%;
 	height: 60px;
@@ -26,6 +23,7 @@ body {
 }
 
 /*Barra de menu*/
+
 .menu{
 	margin: 0 auto;
 	margin-top: 5px;
@@ -49,9 +47,9 @@ li {
 }
 
 .funcao{
+	display: block;
 	width: 800px;
-	height: 15px;
-	margin: 0 auto;
+	margin: auto;
 }
 
 /*Tabelas*/
@@ -83,23 +81,66 @@ table td{
 /*Formularios*/
 
 .formulario {
-	width: 800px;
+	width: 400px;
 	margin: auto;
-	background-color: none;
+	background-color: #FFCC00;
+	display: block;
 }
 
 .titulo{
 	background-color: none;
 	width: 800px;
+	height: 60px;
+	font-size: 30px;
 	margin: auto;
+	text-align: center
 }
+
 
 input[type='submit']{
 	color: #b0ccaf;
 	background-color: #21561f;
-	margin-top: 10px;
+	border: 1px solid #333;
+	border-radius: 5px;
+	display: block;
+	margin: auto;
 }
 
 input[type='text']{
-
+	vertical-align: center;
+	display: block;
+	margin: auto;
 }
+
+input[type='password']{
+	display: block;
+	margin: auto;
+}
+
+select{
+	border: 1px solid #333;
+	border-radius: 5px;
+	display: block;
+	margin: auto;
+}
+
+label{
+	display: block;
+	text-align: center;
+}
+
+.cadastrar-centralizado{
+	display: flex;
+	border: 1px solid #333;
+	border-radius: 5px;
+	color: #AAA;
+	background-color: #21561f;
+	justify-content: center;
+	margin-top: 20px;
+	width: 100px;
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+

@@ -36,7 +36,7 @@
 		<form method='POST' >
 			<label>Usuário:</label>
 			<br>
-			<input type='text' name='usuario_login' >
+			<input type='text' name='usuario_login' autofocus >
 
 			<br><br>
 			<label>Senha:</label>

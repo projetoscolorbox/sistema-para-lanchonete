@@ -1,3 +1,4 @@
+<div class='formulario'>
 <form method='GET'>
 <?php
 	
@@ -36,7 +37,7 @@
 		$situacao = $situacao['pedido_andamento'];
 
 		#montando o Combo Box
-		$CB_andamento = "<select name='andamento'>
+		$CB_andamento = "<label >Andamento </label><select name='andamento'>
 							<option>".$situacao."</option>";
 		switch ($situacao) {
 			case 'Aguardando Recepção':
@@ -67,3 +68,4 @@
 <input type='hidden' name='acao' value='pedido-gerenciar'>
 <input type='submit' name='' value='Enviar'>
 </form>
+</div>

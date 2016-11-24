@@ -58,10 +58,10 @@
 <div class='titulo'>Cadastrar Produto</div>
 <div class='formulario'>
 <form method='GET'>
-	Nome:
+	<label>Nome:</label>
 	<input type='text' name='prodNome'>
 	<br>
-	Preço:
+	<label>Preço:</label>
 	<input type='text' name='prodPreco'>
 	<br>
 	<?php # recupera as categorias existentes no banco e cria o ComboBox
@@ -78,7 +78,8 @@
 
 
 		#montando o Combo Box
-		$CB_categorias = "Categoria: <select name='prodCategoria'>";
+		$CB_categorias = "<label>Categoria:</label>
+							 <select name='prodCategoria'>";
 
 		foreach ($dadosCB as $item) {
 			

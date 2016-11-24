@@ -60,7 +60,7 @@
 			}else if($editar ==1){
 				echo "<td><a href='index.php?acao=categoria-editar&catID=".$item['categoria_id']."'>Editar</a></td>";
 			}else if($excluir == 1){
-				echo "<td><a href='index.php?acao=categoria-excluir&catID=".$item['categoria_id']."'>Excluir</a></td>";
+				echo "<td><a href='index.php?acao=categoria-excluir&catID=".$item['categoria_id']."'>Excluiditar</a></td>";
 			}
 
 			echo "</tr>";

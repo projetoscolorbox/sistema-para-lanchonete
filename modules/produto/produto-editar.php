@@ -60,13 +60,13 @@
 		<div class='formulario'>
 		<form method='GET'>
 			<input type='hidden' name='prodID' value='$prodID'>
-			Nome:
+			<label>Nome:</label>
 			<input type='text' name='prodNome' value='$nome'>
 			<br>
-			Preco:
+			<label>Preco:</label>
 			<input type='text' name='prodPreco' value='$preco'>
 			<br>
-			Categoria:
+			<label>Categoria:</label>
 			$CB_categorias
 			<br>
 			<input type='submit' name='' value='Editar'>

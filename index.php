@@ -9,6 +9,7 @@
 <html lang='pt-br'>
 <head>
 	<meta charset='utf8'>
+	<meta id='viewport' name='viewport' content='width=device-width, user-scalable-no'>
 
 	<?php
 
