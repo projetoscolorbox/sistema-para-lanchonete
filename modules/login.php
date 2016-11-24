@@ -9,15 +9,15 @@
 <div class='titulo'>Logar</div>
 <div class='formulario'>
 <form method='POST' action='modules/carregar_funcionalidades.php'>
-		<label>Usuário:</label>
+		<label>Usuário</label>
 		<br>
-		<input type='text' name='user'>
+		<input type='text' name='user' autofocus>
 		<br><br>
-		<label>Senha:</label>
+		<label>Senha</label>
 		<br>
 		<input type='password' name='password'>
 		<br><br>
 		<input type='submit' name="entrar">
 	</form>
-	<a href='?acao=cliente-cadastrar'>Cadastrar</a>
+	<a href='?acao=cliente-cadastrar' class='cadastrar-centralizado'>Cadastrar</a>
 </div>
